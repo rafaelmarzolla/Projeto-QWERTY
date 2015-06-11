@@ -17,4 +17,4 @@ http://www.ssega.com/sonic-1-remastered
 
 Recursos: Pygame, Flappy Paul, BitBucket, 
 
-Plano-B: Space-Invaders, 
+Plano-B: Temple Run em 2d, 
