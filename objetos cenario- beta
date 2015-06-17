@@ -1,0 +1,8 @@
+obj1 = pygame.draw.rect(gameDisplay,green,[500,383,60,20])
+obj2 = pygame.draw.rect(gameDisplay,green,[500,383,120,20])
+obj3 = pygame.draw.rect(gameDisplay,green,[500,383,180,20])
+obj4 = pygame.draw.rect(gameDisplay,green,[520,383,60,20])
+obj5 = pygame.draw.rect(gameDisplay,green,[520,383,120,20])
+obj6 = pygame.draw.rect(gameDisplay,green,[520,383,180,20])
+lista = [obj1,obj2,obj3,obj4,obj5,obj6]
+    
