@@ -1,0 +1,137 @@
+
+import pygame
+import time
+import sys
+from pygame.locals import *
+import random
+import pygame.mixer
+pygame.init()
+
+white = (255,255,255) #definindo cores pelo espectro rgb( red, green, blue)
+black=(0,0,0)
+red=(255,0,0) 
+green=(0,200,0)
+blue=(0,0,255)
+yellow=(255,255,0)
+
+display_widht = 800
+display_height = 600
+#---------------------------------------------------------------------------------------------------------#
+    
+gameDisplay = pygame.display.set_mode((display_widht,display_height))  #cria janela no pygame
+pygame.display.set_caption("QWERTY") #da tituo a janela
+
+    
+clock = pygame.time.Clock()
+
+imagem = pygame.image.load("jogo.png")
+
+
+def gameLoop ():  #funçao para definir o jogo
+    gameExit = False
+    gameOver = False
+    
+    x= 500
+    x1=520
+    global direction
+    def objetos():
+        numeros = [5,10,15,20]
+        tempo = random.choice(numeros)
+    
+    
+    
+        obj1 = pygame.draw.rect(gameDisplay,green,[x,383,60,20])
+        obj2 = pygame.draw.rect(gameDisplay,green,[x,383,120,20])
+        obj3 = pygame.draw.rect(gameDisplay,green,[x,383,180,20])
+        obj4 = pygame.draw.rect(gameDisplay,green,[x1,383,60,20])
+        obj5 = pygame.draw.rect(gameDisplay,green,[x1,383,120,20])
+        obj6 = pygame.draw.rect(gameDisplay,green,[x1,383,180,20])
+        lista = [obj1,obj2,obj3,obj4,obj5,obj6]
+        lista2=random.choice(lista)
+        return [tempo,lista2]
+    
+    
+    
+
+
+
+    FPS = 12
+
+
+    lead_x_change = 0
+    lead_y_change = 0
+    imagemX = 0
+    imagemY = 100
+
+    while not gameExit:
+        
+        while gameOver == True:  # antes de fechar da opçoes de voltar a jogar
+            pygame.mixer.music.stop()
+            gameDisplay.fill(white)
+            message_to_screen("GameOver",red,y_displace=-50,size="large")
+            message_to_screen( "Press P to Play again or Q to Quit",black,y_displace=50,size="medium")
+            pygame.display.update()
+            
+            for event in pygame.event.get():  #se n quer jogar
+                if event.type == pygame.QUIT:
+                    gameOver = False
+                    gameExit = True
+                
+                
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_q:
+                        gameExit = True
+                        gameOver = False
+                        
+                    if event.key == pygame.K_p: #se quer jogar
+                        gameLoop()
+                        
+        lead_x_change=-20
+        lead_y_change = 0
+        
+        
+        for event in pygame.event.get(): 
+            if event.type==pygame.QUIT: #termina o game ao clicar no "X" da janela
+                gameExit = True
+             
+             
+          
+            
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                  lead_y_change = 20 
+                  lead_x_change = 0
+                    	#direction = "up"
+
+
+
+            if event.type == pygame.KEYUP:  #quando soltamos o botao o movimento para
+                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                    lead_x_change = 0
+                if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                    lead_y_change = 0
+                    
+
+
+
+        imagemX+=lead_x_change
+        imagemY+=lead_y_change
+        gameDisplay.fill((255,255,255))
+          
+        gameDisplay.blit(imagem, (imagemX,imagemY))#poe ou define coisas na tela cor/[x,y,comprimento,altura]
+        objetos() 
+#        pygame.draw.rect(gameDisplay,green,[x,383,60,20])
+        
+        
+        pygame.display.update() # ativa aquilo q foi escrito anteriormente 
+        x-=1
+        x1-=1
+
+        clock.tick(FPS)  # ajustar o fps
+  #OR pygame.quit()
+        quit()
+               # sys.exit()
+            
+                
+
+gameLoop()
